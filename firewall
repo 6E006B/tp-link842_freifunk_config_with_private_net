@@ -1,0 +1,72 @@
+
+config defaults
+    option syn_flood '1'
+    option input 'ACCEPT'
+    option output 'ACCEPT'
+    option forward 'REJECT'
+
+config zone
+    option name 'wan'
+    option network 'wan'
+    option input 'ACCEPT'
+    option output 'ACCEPT'
+    option forward 'REJECT'
+    option masq '1'
+    option mtu_fix '1'
+
+config zone
+    option name 'freifunk'
+    option network 'freifunk'
+    option input 'ACCEPT'
+    option output 'ACCEPT'
+    option forward 'REJECT'
+
+config rule
+    option name 'Reject-Telnet'
+    option src 'freifunk'
+    option proto 'tcp'
+    option dest_port '23'
+    option target 'REJECT'
+
+config rule
+    option src 'freifunk'
+    option proto 'tcp'
+    option dest_port '22'
+    option target 'ACCEPT'
+
+config include
+    option path '/etc/firewall.user'
+
+config zone
+    option input 'ACCEPT'
+    option forward 'REJECT'
+    option output 'ACCEPT'
+    option network 'lan'
+    option name 'lan'
+    option log '1'
+    option log_limit '100/minute'
+
+config forwarding
+    option src 'lan'
+    option dest 'wan'
+
+config rule
+    option src 'freifunk'
+    option dest 'wan'
+    option target 'DROP'
+
+config rule
+    option src 'freifunk'
+    option dest 'lan'
+    option target 'DROP'
+
+config rule
+    option src 'lan'
+    option dest 'freifunk'
+    option target 'DROP'
+
+config rule
+    option src 'wan'
+    option dest 'freifunk'
+    option target 'DROP'
+
