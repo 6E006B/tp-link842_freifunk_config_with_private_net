@@ -2,12 +2,12 @@
 These configuration files should be copied in the /etc/config/ directory on your router.
 
 
-IMPORTANT: In the default configuration the dnsmasq isn't started at boot. You should enable it on boot by creating a symlink into the /etc/rc.d/ like so:
+IMPORTANT: In the default configuration the dnsmasq isn't started at boot. You should enable it on boot:
 
- ln -s /etc/init.d/dnsmasq /etc/rc.d/S51dnsmasq
+    /etc/init.d/dnsmasq enable
 
 
-NOTICE: Before deploying the configs the psk2 passphrase should be changed.
+NOTICE: Before deploying the configs the passphrase ("key" in wireless) and the name of your wireless network ("ssid") should be changed.
 
 
 NOTICE: The LAN ports are bridged with the freifunk network.
